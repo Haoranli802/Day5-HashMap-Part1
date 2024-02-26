@@ -43,3 +43,49 @@ class Solution {
         return res;
     }
 }
+
+// LC 202
+
+class Solution {
+    public boolean isHappy(int n) {
+        Set<Integer> map = new HashSet<>();
+
+        while(n != 1 && !map.contains(n)){
+            map.add(n);
+            n = happyHelper(n);
+        }
+        return n == 1;
+    }
+    public int happyHelper(int n){
+        int sum = 0;
+        while(n > 0){
+            sum += (n % 10) * (n % 10);
+            n = n / 10;
+        }
+        return sum;
+    }
+}
+//使用HashSet
+
+class Solution {
+    public boolean isHappy(int n) {
+        Set<Integer> map = new HashSet<>();
+        int fast = n;
+        int slow = n;
+        do{
+            fast = happyHelper(fast);
+            fast = happyHelper(fast);
+            slow = happyHelper(slow);
+        }while(fast != slow);
+        return fast == 1;
+    }
+    public int happyHelper(int n){
+        int sum = 0;
+        while(n > 0){
+            sum += (n % 10) * (n % 10);
+            n = n / 10;
+        }
+        return sum;
+    }
+}
+//快慢指针
